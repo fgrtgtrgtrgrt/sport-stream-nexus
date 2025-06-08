@@ -1,26 +1,24 @@
 import type { Game } from '@/pages/Index';
 
-const BACKEND_URL = 'https://backend-eiw2.onrender.com'; // Change to deployed URL when hosting
+const BACKEND = 'https://backend-eiw2.onrender.com'; // Change to your deployed backend
 
 export class StreamService {
   static async getTodaysGames(): Promise<Game[]> {
     try {
-      const res = await fetch(`${BACKEND_URL}/api/live-games`);
-      if (!res.ok) throw new Error('Failed to fetch games');
-      return await res.json();
-    } catch (error) {
-      console.error('Error fetching games:', error);
+      const res = await fetch(`${BACKEND}/api/live-games`);
+      if (!res.ok) throw new Error('Failed to fetch live games');
+      return (await res.json()) as Game[];
+    } catch (err) {
+      console.error(err);
       return [];
     }
   }
 
-  static async getGameById(id: string): Promise<Game | null> {
+  static async getGameById(gameId: string): Promise<Game | null> {
     try {
-      const res = await fetch(`${BACKEND_URL}/api/game/${id}`);
-      if (!res.ok) return null;
-      return await res.json();
-    } catch (error) {
-      console.error('Error fetching game by ID:', error);
+      const games = await this.getTodaysGames();
+      return games.find(g => g.id === gameId) || null;
+    } catch {
       return null;
     }
   }
