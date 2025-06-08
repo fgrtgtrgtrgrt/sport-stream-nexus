@@ -1,6 +1,6 @@
 import type { Game, StreamLink } from '@/pages/Index';
 
-const BACKEND_URL = 'https://backend-eiw2.onrender.com/'; // Replace with your deployed backend URL
+const BACKEND_URL = 'https://backend-eiw2.onrender.com'; // Replace with your deployed backend URL
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes cache
 
 type CacheEntry<T> = {
